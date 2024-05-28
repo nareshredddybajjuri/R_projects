@@ -1,0 +1,172 @@
+---
+title: ' Project Part1 & 2'
+author: "Naresh Reddy Bajjuri"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r part1}
+data.group1 <- read.csv("Group_1.csv", na.strings = "?", stringsAsFactors = T)
+
+head(data.group1)
+
+dim(data.group1)
+
+names(data.group1)
+
+pairs(data.group1)
+
+attach(data.group1)
+hist(X)
+hist(X1)
+hist(X2)
+hist(X3)
+hist(X4)
+hist(X5)
+hist(X6)
+hist(X7)
+hist(Y1)
+hist(Y2)
+hist(Y3)
+hist(Y4)
+hist(Y5)
+hist(Y6)
+
+plot(X8, X)
+plot(X8, X1)
+plot(X8, X2)
+plot(X8, X3)
+plot(X8, X4)
+plot(X8, X5)
+plot(X8, X6)
+plot(X8, X7)
+plot(X8, Y1)
+plot(X8, Y2)
+plot(X8, Y3)
+plot(X8, Y4)
+plot(X8, Y5)
+plot(X8, Y6)
+
+plot(X9, X)
+plot(X9, X1)
+plot(X9, X2)
+plot(X9, X3)
+plot(X9, X4)
+plot(X9, X5)
+plot(X9, X6)
+plot(X9, X7)
+plot(X9, Y1)
+plot(X9, Y2)
+plot(X9, Y3)
+plot(X9, Y4)
+plot(X9, Y5)
+plot(X9, Y6)
+
+plot(X10, X)
+plot(X10, X1)
+plot(X10, X2)
+plot(X10, X3)
+plot(X10, X4)
+plot(X10, X5)
+plot(X10, X6)
+plot(X10, X7)
+plot(X10, Y1)
+plot(X10, Y2)
+plot(X10, Y3)
+plot(X10, Y4)
+plot(X10, Y5)
+plot(X10, Y6)
+
+plot(Y7, X)
+plot(Y7, X1)
+plot(Y7, X2)
+plot(Y7, X3)
+plot(Y7, X4)
+plot(Y7, X5)
+plot(Y7, X6)
+plot(Y7, X7)
+plot(Y7, Y1)
+plot(Y7, Y2)
+plot(Y7, Y3)
+plot(Y7, Y4)
+plot(Y7, Y5)
+plot(Y7, Y6)
+
+
+summary(data.group1)
+```
+
+```{r part2}
+#Group 1 Project Part 2 Individual 2
+
+#1
+lmY6.12 <- lm(Y6 ~ X1 + X2, data=data.group1)
+summary(lmY6.12)
+confint(lmY6.12)
+
+#2
+lmY6.13 <- lm(Y6 ~ X1 + X3, data=data.group1)
+summary(lmY6.13)
+confint(lmY6.13)
+lmY6.14 <- lm(Y6 ~ X1 + X4, data=data.group1)
+summary(lmY6.14)
+confint(lmY6.14)
+lmY6.15 <- lm(Y6 ~ X1 + X5, data=data.group1)
+summary(lmY6.15)
+confint(lmY6.15)
+lmY6.16 <- lm(Y6 ~ X1 + X6, data=data.group1)
+summary(lmY6.16)
+confint(lmY6.16)
+lmY6.17 <- lm(Y6 ~ X1 + X7, data=data.group1)
+summary(lmY6.17)
+confint(lmY6.17)
+
+#3
+lmY6int.12 <- lm(Y6 ~ X1 * X2, data=data.group1)
+lmY6int.13 <- lm(Y6 ~ X1 * X3, data=data.group1)
+lmY6int.14 <- lm(Y6 ~ X1 * X4, data=data.group1)
+lmY6int.15 <- lm(Y6 ~ X1 * X5, data=data.group1)
+lmY6int.16 <- lm(Y6 ~ X1 * X6, data=data.group1)
+lmY6int.17 <- lm(Y6 ~ X1 * X7, data=data.group1)
+
+summary(lmY6int.12)
+summary(lmY6int.13)
+summary(lmY6int.14)
+summary(lmY6int.15)
+summary(lmY6int.16)
+summary(lmY6int.17)
+```
+```{r part3}
+data.group1 <- read.csv("Group_1.csv", na.strings = "?", stringsAsFactors = T)
+attach(data.group1)
+my.logistic <- glm(Y7 ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 , data = data.group1 , family = binomial)
+summary(my.logistic)
+glm.probs <- predict(my.logistic , type = "response")
+glm.pred <- rep("Down", 1023)
+glm.pred[glm.probs > .5] = "Up"
+table(glm.pred , Y7)
+
+library(MASS)
+my.lda <- lda(Y7 ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10, data = data.group1)
+my.lda
+lda.pred <- predict(my.lda, data.group1)
+lda.class <- lda.pred$class
+table(lda.class, Y7)
+
+
+my.qda <-  qda(Y7 ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10, data = data.group1)
+my.qda
+qda.class <- predict(my.qda, data.group1)$class
+table(qda.class, Y7)
+```
+
+
+
+
